@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./js/jquery-3.2.1.min.js"></script>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+
+        }
+        html,body {
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+        }
+        .wrapper {
+            width: 400px;
+            height: 400px;
+            margin: 50px;
+            background-image: url('./image/duo.jpg');
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+            position: relative;
+            display: inline-block;
+        }
+        .wrapper .box {
+            width: 100px;
+            height: 100px;
+            background-color: black;
+            opacity: 0.4;
+            position: absolute;
+            left: 0;
+            top: 0;
+            display: none;
+        }
+        .focus {
+            width: 400px;
+            height: 400px;
+            position: relative;
+            display: inline-block;
+            margin: 50px;
+            background-image: url('./image/duo.jpg');
+            background-size: 400% 400%;
+            background-repeat: no-repeat;
+            background-position: 0px 0px;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="box"></div>
+    </div>
+    <div class="focus"></div>
+    <script>
+        $('.wrapper').on('mouseenter',function(e){
+            $(this).css({
+                cursor : 'move' 
+            })
+            var disX = $('.box').width()/2;
+            var disY = $('.box').height()/2;
+            $('.box','.wrapper').show().css({
+                left : e.pageX - disX,
+                top : e.pageY - disY
+            }); 
+            $('.focus').show().css({
+                display : 'inline-block'
+            })
+
+            $('.wrapper').on('mousemove',function(e){
+                $('.box').css({
+                    left : e.pageX - 100,
+                    top : e.pageY - 100
+                    })
+                $('.focus')
+                .css('backgroundPositionX', -$('.box').position().left*4 )
+                .css('backgroundPositionY', -$('.box').position().top*4 )
+                if(parseInt($('.focus').css('backgroundPositionX')) < -1200 ){
+                    $('.focus')
+                    .css('backgroundPositionX', -1200 )
+                }
+                if(parseInt($('.focus').css('backgroundPositionX')) >= 0 ){
+                    $('.focus')
+                    .css('backgroundPositionX', 0 )
+                }
+                if(parseInt($('.focus').css('backgroundPositionY')) < -1200 ){
+                    $('.focus')
+                    .css('backgroundPositionY', -1200 )
+                }
+                if(parseInt($('.focus').css('backgroundPositionY')) >= 0){
+                    $('.focus')
+                    .css('backgroundPositionY', 0 )
+                }
+                
+                if(e.pageX <= 100){
+                    $('.box').css({     
+                        left : 0
+                    })
+                }
+                if(e.pageX >= $('.wrapper').width()){
+                    $('.box').css({
+                        left : $('.wrapper').width()-100
+                    })
+                }
+                if(e.pageY <= 100){
+                    $('.box').css({
+                        top: 0
+                    })
+                }
+                if(e.pageY >= $('.wrapper').height()){
+                    $('.box').css({
+                        top : $('.wrapper').height()- 100
+                    })
+                }
+                   
+                
+                
+                
+            })
+        }).on('mouseleave',function(){
+            $('.box').hide();
+            $('.focus').hide();
+        })
+    
+    </script>
+
+
+    <script>
+        
+        
+        class myPromise
+        {
+            constructor(fn){
+                if(typeof fn != 'function'){
+                    throw(TypeError(`${fn} is not a function`));
+                }
+                this.status = 'pendding';
+                this.data = null;
+                this.onresolve = [];
+                this.onreject = [];
+                let resolveb = resolve.bind(this)
+                let rejectb = reject.bind(this)
+                function resolve(...arg){
+                    if(this.status === 'pendding'){
+                        this.status = 'resolved';
+                        if(arg){
+                            this.data = arg;
+                        }
+                        this.onresolve && this.onresolve.forEach(ele => {
+                            ele();
+                        })
+                    }
+                }
+                function reject(...arg){
+                    if(this.status === 'pendding'){
+                        if(arg){
+                            this.data = arg;
+                        }
+                        this.status = 'rejected';
+                        this.onreject && this.onresolve.forEach( ele => {
+                            ele()
+                        })
+                        
+                    }
+
+                }
+                    // let resolve = (...arg) =>{
+                    //     if(this.status === 'pendding'){
+                    //     this.status = 'resloved';
+                    //     this.data = arg;
+                    //     }
+                    // }
+                    // let reject = (...arg) => {
+                    //     if(this.status === 'pendding'){
+                    //     this.status = 'rejected';
+                    //     this.data = arg;
+                    //     }
+                    // }
+                fn(resolveb,rejectb);
+
+                }
+
+            then(res,rej){
+                // if(typeof res != 'function' || typeof rej != 'funtion'){
+                //     throw(`${res} is not a function`);
+                // }       
+                if(this.status == 'resolved'){
+                    let temp = res(this.data);
+                    return new myPromise((suc,err) => {
+                      if(temp instanceof myPromise){
+                          temp.then(suc,err)
+                      }else {
+                          suc(temp)
+                      }
+                })
+                }else if(this.status == 'rejected') {
+                    let temp = rej(this.data);
+                    return new myPromise((suc,err) => {
+                      if(temp instanceof myPromise){
+                          temp.then(suc,err)
+                      }else {
+                          suc(temp)
+                      }
+                })
+                }else if(this.status == 'pendding') {
+                   return new myPromise((suc,err) => {
+                       this.onresolve.push(
+                        (res => {
+                           return () => {
+                            let temp = res(this.data);
+                            if(temp instanceof myPromise){
+                                temp.then(suc,err)
+                            }else {
+                                suc(temp)
+                            }
+                           }
+                       })(res)
+                       ) 
+
+                       this.onreject.push((res => {
+                           return () => {
+                            let temp = res(this.data);
+                            if(temp instanceof myPromise){
+                                temp.then(suc,err)
+                            }else {
+                                suc(temp)
+                            }
+                           }
+
+                       })(res))  
+                   })
+                }
+            }
+            catch(){
+
+            }
+            all(){
+
+            }
+            race(){
+
+            }
+
+        }
+        // var p = new myPromise((suc,err) => {
+        //     setTimeout(()=>{
+        //         suc(123);
+        //     },5000)
+        // })
+        // p.then(data=>{console.log(data)})
+        // p.then(data=>{console.log(data)})
+        // p.then(data=>{console.log(data)})
+    //    function MyPromise(fn){
+    //        if(typeof fn != 'function'){
+    //            throw(`${fn} is not a function`);
+    //        }
+    //         this.status = 'pendding';
+    //         this.data = null;
+    //         let that = this;
+    //        fn(resolve,reject);
+    //        function resolve(...arg){
+    //            if(that.status === 'pendding'){
+    //                 that.status = 'resloved';
+    //                 that.data = arg;
+    //            }
+    //        }
+    //        function reject(...arg){
+    //         if(that.status === 'pendding'){
+    //                 that.status = 'rejected';
+    //                 that.data = arg;
+    //            }
+    //        }
+    //    }
+      
+    //    MyPromise.prototype.all = function(){}
+    //    MyPromise.prototype.race = function(){}
+    //    MyPromise.prototype.then = function(){}
+    //    MyPromise.prototype.catch = function(){}
+    </script>
+</body>
+</html>

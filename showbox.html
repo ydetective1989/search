@@ -1,0 +1,166 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script type="text/javascript" src="./js/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="./js/cookie.js"></script>
+  <script type="text/javascript" src="./js/show-box.js"></script>
+  <link rel="stylesheet" href="./css/baidu.css">
+  <link rel="stylesheet" href="./css/index.css">
+  <style media="screen">
+  *{
+    margin: 0;
+    padding: 0;
+    font-family: arial;
+    list-style: none;
+    font-size:16px;
+    text-decoration:none;
+  }
+	.menu-wrapper {
+		width:100%;
+		background:#e3e4e5;
+	}
+	
+	.menu-wrapper .menu {
+		width:1190px;
+		height:30px;
+		margin:0 auto;
+		background: #e3e4e5;
+		position:relative;
+	}
+	.menu-wrapper .menu .logo{
+    width: 190px;
+    height: 170px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-image:url('https://misc.360buyimg.com/mtd/pc/index_2017/2.1.0/static/images/sprite.head.png');
+    background-repeat: no-repeat;
+    box-shadow: 0 2px 8px #666;
+}
+	.menu-wrapper .menu .pov {
+		height:28px;
+		line-height:28px;
+
+		position:absolute;	
+		left:200px;
+		z-index: 999;
+		 
+	}
+	.menu-wrapper .menu .pov .now-pov {
+		width: 56px;
+		box-sizing: border-box;
+		border: 1px solid #e3e4e5;
+		color:#666;
+		display: inline-block;
+		font-size : 12px;
+		position: relative;
+		z-index: 999;
+		text-align: center;
+	}
+	.menu-wrapper .menu .menu-right {
+		position:absolute;
+		height:30px;
+		right:0px;
+	}
+	.menu-wrapper .menu .menu-right .menu-list {
+		float:left;
+		height:30px;
+		line-height:30px;
+		text-align:center;
+		
+	}
+	.menu-wrapper .menu .menu-right .menu-list span {
+		padding: 0 10px;
+		font-size : 12px;	
+		color:#666;
+	}
+	.menu-wrapper .menu .menu-right .menu-list a {
+		padding: 0 10px;
+		font-size : 12px;
+		color:#666;	
+	}
+	.menu-wrapper .menu .menu-right .menu-list .login{
+
+	}
+	.menu-wrapper .menu .menu-right .menu-list .regist{
+		color:red;
+
+	}
+  </style>
+  <title>Document</title>
+</head>
+<body>
+<div class="menu-wrapper">
+	<div class="menu">
+		<div class="logo">
+				<a href="#"></a>
+		</div>
+		<div class="pov"><div class="now-pov">北京</div></div>
+		<ul class="menu-right">
+			<li class="menu-list"><a class="login" href="#">你好，请登录</a><a href="#" class="regist">免费注册</a></li>
+			<li class="menu-list"><a class="" href="#">我的订单</a></li>
+			<li class="menu-list"><a href="#">我的京东</a></li>
+			<li class="menu-list"><a href="#">京东会员</a></li>
+			<li class="menu-list"><a href="#">企业采购</a></li>
+			<li class="menu-list"><span>客户服务</span></li>
+			<li class="menu-list"><span>网站导航</span></li>
+			<li class="menu-list"><span>手机京东</span></li>
+		</ul>
+	</div>
+
+</div>
+<script>
+  var dataArr = [
+	{'povname' : '北京'},
+	{'povname' : '上海'},
+	{'povname' : '天津'},
+	{'povname' : '重庆'},
+	{'povname' : '河北'},
+	{'povname' : '山西'},
+	{'povname' : '河南'},
+	{'povname' : '辽宁'},
+	{'povname' : '吉林'},
+	{'povname' : '黑龙江'},
+	{'povname' : '内蒙古'},
+	{'povname' : '江苏'},
+	{'povname' : '山东'},
+	{'povname' : '安徽'},
+	{'povname' : '浙江'},
+	{'povname' : '福建'},
+	{'povname' : '湖北'},
+	{'povname' : '湖南'},
+	{'povname' : '广东'},
+	{'povname' : '广西'},
+	{'povname' : '江西'},
+	{'povname' : '四川'},
+	{'povname' : '海南'},
+	{'povname' : '贵州'},
+	{'povname' : '云南'},
+	{'povname' : '西藏'},
+	{'povname' : '陕西'},
+	{'povname' : '甘肃'},
+	{'povname' : '青海'},
+	{'povname' : '宁夏'},
+	{'povname' : '新疆'},
+	{'povname' : '港澳'},
+	{'povname' : '台湾'},
+	{'povname' : '钓鱼岛'},
+	{'povname' : '海外'}
+	]
+  $('.pov','.nav-wrapper').showbox({
+  	'width'   : '322',
+	'display' : 'none',
+        'data'    : dataArr,
+	'bgcolor': '#fff',
+	'fontcolor': '#999',
+	'itemWidth':'60'
+	
+  })
+</script>
+  
+
+</body>
+</html>

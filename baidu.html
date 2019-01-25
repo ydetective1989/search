@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script type="text/javascript" src="./js/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="./js/cookie.js"></script>
+  <script type="text/javascript" src="./js/baidu.js?22"></script>
+  <link rel="stylesheet" href="./css/baidu.css">
+  <style media="screen">
+  *{
+    margin: 0;
+    padding: 0;
+    font-family: arial;
+    list-style: none;
+    font-size:16px;
+  }
+    .search{
+      width: 400px;
+      /*height: 30px;*/
+      margin: 20px auto;
+    }
+  </style>
+  <title>Document</title>
+</head>
+<body>
+
+  <div class="search"></div>
+  <div style="text-align:center">哈哈哈</div>
+  <script type="text/javascript">
+
+    function success(data){
+      console.log(data)
+      var str = "";
+      data.result.forEach(function(ele){
+        str += "<li class='res_list'><span class='res_content'>" + ele[0] + "</span></li>"
+      })
+      $('.res','.search').html(str).show();
+    }
+
+    $('.search').searchInput({
+      url:'https://suggest.taobao.com/sug',
+      type:'get',
+      code:'utf-8',
+      key:'callback',//jsonp参数
+      dataPar:'q',
+      jsonpCallback:'success',
+      width:'300px',
+      height:'30px'
+    })
+//添加功能：上次搜索关键词保存到cookie 鼠标点击可以直接获取历史关键词
+
+
+
+  </script>
+
+</body>
+</html>

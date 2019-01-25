@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script type="text/javascript" src="./js/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="./js/cookie.js"></script>
+  <script type="text/javascript" src="./js/swiper.js?2212"></script>
+  <link rel="stylesheet" href="./css/baidu.css">
+  <style media="screen">
+  *{
+    margin: 0;
+    padding: 0;
+    font-family: arial;
+    list-style: none;
+    font-size:16px;
+  }
+    .search{
+      width: 500px;
+      height: 300px;
+      margin: 20px auto;
+    }
+  </style>
+  <title>Document</title>
+</head>
+<body>
+
+  <div class="search"></div>
+  <script type="text/javascript">
+
+    var data = [	
+	{'img': 'https://img.alicdn.com/imgextra/i3/714903995/TB2nMsDw8nTBKNjSZPfXXbf1XXa_!!714903995.jpg',
+	 'href' : '#'
+	},
+	{'img': 'https://img.alicdn.com/imgextra/i2/714903995/TB2XtfHbi6guuRjy0FmXXa0DXXa_!!714903995.jpg',
+	 'href' : '#'
+	},
+	{'img': 'https://img.alicdn.com/imgextra/i3/714903995/TB2P55HkbsrBKNjSZFpXXcXhFXa_!!714903995.jpg',
+	 'href' : '#'
+  },
+  {'img': 'https://img.alicdn.com/imgextra/i3/714903995/TB2P55HkbsrBKNjSZFpXXcXhFXa_!!714903995.jpg',
+	 'href' : '#'
+  },	
+  {'img': 'https://img.alicdn.com/imgextra/i3/714903995/TB2P55HkbsrBKNjSZFpXXcXhFXa_!!714903995.jpg',
+	 'href' : '#'
+  },			
+  {'img': 'https://img.alicdn.com/imgextra/i3/714903995/TB2P55HkbsrBKNjSZFpXXcXhFXa_!!714903995.jpg',
+	 'href' : '#'
+  },	
+  {'img': 'https://img.alicdn.com/imgextra/i3/714903995/TB2P55HkbsrBKNjSZFpXXcXhFXa_!!714903995.jpg',
+	 'href' : '#'
+	},	
+	]
+    $('.search').swiper({
+      width : '500',
+      height: '300',
+      data: data,
+      index : 1,
+      autoTime : 2000
+    })
+//添加功能：上次搜索关键词保存到cookie 鼠标点击可以直接获取历史关键词
+
+
+
+  </script>
+
+</body>
+</html>

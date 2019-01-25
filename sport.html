@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<style media="screen">
+  .demo{
+    width: 50px;
+    height: 50px;
+    background: red;
+    position: absolute;
+    left: 0;
+    top: 0;
+
+  }
+  .line {
+    width: 1px;
+    height: 50px;
+    position: absolute;
+    left: 500px;
+    top: 0;
+    background: black;
+
+  }
+</style>
+<body>
+  <div class="demo"></div>
+  <div class="line"></div>
+</body>
+</html>
+<script type="text/javascript">
+var oDiv = document.getElementsByClassName('demo')[0];
+// flexMove(oDiv,{width : '500',height : '500'},function(){
+//   alert('OK');
+// });
+
+function getStyle(obj,prop){
+  if(obj.currentStyle){
+    return obj.currentStyle[prop];
+  }else{
+    return window.getComputedStyle(obj,null)[prop];
+  }
+}
+function flexMove(obj,tarobj,func){
+  var iSpeed = 20;
+  var a;
+
+  obj.timer = setInterval(function(){
+    for(var prop in tarobj){
+      var flag = true;
+      a = (tarobj[prop] - parseInt(getStyle(obj,prop)) )*0.8;
+      iSpeed = (iSpeed + a)*0.8;
+      if(Math.abs(iSpeed) <= 1 && Math.abs(tarobj[prop] - parseInt(getStyle(obj,prop)) ) <= 1){
+        obj.style[prop] = tarobj[prop] + "px";
+      }else{
+        obj.style[prop] = parseInt(getStyle(obj,prop)) + iSpeed + "px";
+      }
+      if(parseInt(getStyle(obj,prop)) != tarobj[prop]){
+        flag = false;
+      }
+    }
+    if(flag){
+      clearInterval(obj.timer);
+      func();
+    }
+  },30)
+}
+function move(obj,target){
+  var iSpeed;
+  var a = 7;
+  obj.timer = setInterval(function(){
+    iSpeed = (target - obj.offsetLeft)/8;
+    iSpeed = Math.ceil(iSpeed);
+    obj.style.left = obj.offsetLeft + iSpeed + "px";
+    if(obj.offsetLeft == target){
+      clearInterval(obj.timer);
+    }
+  },30)
+}
+
+</script>
